@@ -1,0 +1,12 @@
+{
+  "name": "Magic English Quest - 奇趣英语探险岛",
+  "short_name": "英语探险岛",
+  "description": "适用于小学五年级的横屏英语学习与闯关练习应用",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0c1a30",
+  "theme_color": "#0c1a30"
+}
