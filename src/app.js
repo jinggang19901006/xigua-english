@@ -97,10 +97,10 @@ function navigate(next) {
 
 function escapeHtml(value) {
   return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 function shuffle(values) {
@@ -760,7 +760,7 @@ function fingerGuide(key) {
 function renderKeyboard() {
   const levelIndex = Number(sessionStorage.getItem("keyboardLevel") || 0);
   const level = keyboardLevels[levelIndex];
-  const letters = level[2].replaceAll(" ", "");
+  const letters = level[2].replace(/ /g, "");
   const sequence = shuffle([
     ...Array.from({ length: 15 }, () => letters[Math.floor(Math.random() * letters.length)]),
     " ", " ", " "
@@ -965,7 +965,8 @@ function renderFrog() {
       const nextTime = Math.max(0, Math.ceil((18000 - elapsed) / 1000));
       timeLeft = nextTime;
       updateRiverMotion(now);
-      app.querySelector("[data-frog-timer]")?.replaceChildren(`${timeLeft}s`);
+      const timerElement = app.querySelector("[data-frog-timer]");
+      if (timerElement) timerElement.textContent = `${timeLeft}s`;
       if (elapsed >= 18000) {
         clearGameTimer();
         loseLife("荷叶沉底，生命 -1、得分 -50");
@@ -1198,7 +1199,13 @@ function bindFrogKeyboard(handler) {
 }
 
 function renderReport() {
-  const allWords = BOOKS.flatMap((book) => book.units.flatMap((unit) => unit.words));
+  const allWords = BOOKS.reduce(
+    (bookWords, book) => bookWords.concat(book.units.reduce(
+      (unitWords, unit) => unitWords.concat(unit.words),
+      []
+    )),
+    []
+  );
   const mastered = Object.values(state.wordProgress).filter((item) => item.mastered).length;
   const errors = allWords
     .map((word) => ({ word, errors: state.wordProgress[word.id]?.errors || 0 }))
@@ -1210,7 +1217,10 @@ function renderReport() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6);
   const accuracy = Math.round(state.keyboardCorrect * 100 / Math.max(1, state.keyboardKeystrokes));
-  const completed = BOOKS.flatMap((book) => book.units).filter((unit) => stageStars(unit.id, 3)).length;
+  const completed = BOOKS.reduce(
+    (count, book) => count + book.units.filter((unit) => stageStars(unit.id, 3)).length,
+    0
+  );
 
   shell(`
     <section class="screen">

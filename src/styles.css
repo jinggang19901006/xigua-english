@@ -38,6 +38,7 @@ button {
 
 .app-shell {
   width: 100vw;
+  height: 100vh;
   height: 100dvh;
   min-height: 560px;
   overflow: hidden;
