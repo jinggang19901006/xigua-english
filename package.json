@@ -1,12 +1,14 @@
 {
-  "name": "magic-english-quest",
-  "version": "1.0.0",
+  "name": "xigua-english-web",
+  "version": "2.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "node scripts/export-curriculum.mjs && node scripts/verify-curriculum.mjs && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "verify": "node scripts/verify-ui.mjs"
+    "verify:curriculum": "node scripts/export-curriculum.mjs && node scripts/verify-curriculum.mjs",
+    "verify": "node scripts/verify-curriculum.mjs && node scripts/verify-ui.mjs"
   },
   "devDependencies": {
     "playwright": "^1.63.0",

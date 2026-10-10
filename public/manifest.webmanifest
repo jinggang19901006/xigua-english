@@ -1,12 +1,26 @@
 {
-  "name": "Magic English Quest - 奇趣英语探险岛",
-  "short_name": "英语探险岛",
-  "description": "适用于小学五年级的横屏英语学习与闯关练习应用",
+  "name": "西瓜英语",
+  "short_name": "西瓜英语",
+  "description": "人教版 PEP 三至六年级横屏英语学习与游戏化练习",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "landscape",
-  "background_color": "#0c1a30",
-  "theme_color": "#0c1a30"
+  "background_color": "#081a2d",
+  "theme_color": "#123955",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
